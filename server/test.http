@@ -1,0 +1,35 @@
+@url=http://localhost:8000
+@auth_api=/api/auth
+@jsonContent = Content-Type: application/json
+
+### 测试服务器是否连通
+get {{url}}
+
+### 检查admin用户是否存在
+get {{url}}{{auth_api}}/adminexist
+
+
+### 注册admin
+post {{url}}{{auth_api}}/register
+{{jsonContent}}
+
+{
+  "username": "user1",
+  "password": "123456"
+}
+
+### 登录
+post {{url}}{{auth_api}}/login
+{{jsonContent}}
+
+{
+  "username": "user1",
+  "password":"123456"
+}
+
+### 测试api
+POST {{url}}{{auth_api}}/test
+{{jsonContent}}
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InVzZXIxIiwiYXV0aG9yaXR5VHlwZSI6MTAwLCJpZCI6IjYyNGM0Nzk5MzJjZTViZTdhNWQ4YzA1MyIsImlhdCI6MTY0OTE4MjM1OX0.9118dCHfNag_krh3JmObJesmSC1jx0fLHdAp8pmHLMY
+
+{}

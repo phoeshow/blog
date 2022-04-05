@@ -5,9 +5,8 @@ const http = require('http');
 const https = require('https');
 
 const port = process.env.PORT || 8000;
-app.set('port', port);
 
-const httpServer = http.createServer(app);
+const httpServer = http.createServer(app.callback());
 
 httpServer.listen(port);
 httpServer.on('listening', onListening);

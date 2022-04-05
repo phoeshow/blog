@@ -3,16 +3,26 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "express": "^4.17.3",
-    "react": "^18.0.0",
-    "react-dom": "^18.0.0",
+    "@koa/router": "^10.1.1",
+    "bcryptjs": "^2.4.3",
+    "cookie-parser": "^1.4.6",
+    "evergreen-ui": "^6.9.5",
+    "http-status": "^1.5.0",
+    "jsonwebtoken": "^8.5.1",
+    "koa": "^2.13.4",
+    "koa-body": "^4.2.0",
+    "mongoose": "^6.2.9",
+    "react": "^17.0.0",
+    "react-dom": "^17.0.0",
+    "react-router-dom": "^6.3.0",
+    "swr": "^1.2.2",
     "tailwindcss": "^3.0.2",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "dev:client": "node scripts/start.js",
+    "dev:client": "cross-env NODE_ENV=development node scripts/start.js",
     "build:client": "node scripts/build.js",
-    "dev:server": "nodemon server/bin/www",
+    "dev:server": "nodemon server/app.js",
     "test": "node scripts/test.js"
   },
   "nodemonConfig": {
@@ -22,9 +32,8 @@
       "node_modules/**/node_modules"
     ],
     "verbose": true,
-    "delay": 2500,
     "watch": [
-      "server/"
+      "server/*"
     ],
     "env": {
       "NODE_ENV": "development"
@@ -111,7 +120,6 @@
     "singleQuote": true
   },
   "devDependencies": {
-    "nodemon": "^2.0.15",
     "@babel/core": "^7.16.0",
     "@pmmmwh/react-refresh-webpack-plugin": "^0.5.3",
     "@svgr/webpack": "^5.5.0",
@@ -126,6 +134,7 @@
     "browserslist": "^4.18.1",
     "camelcase": "^6.2.1",
     "case-sensitive-paths-webpack-plugin": "^2.4.0",
+    "cross-env": "^7.0.3",
     "css-loader": "^6.5.1",
     "css-minimizer-webpack-plugin": "^3.2.0",
     "dotenv": "^10.0.0",
@@ -141,6 +150,7 @@
     "jest-resolve": "^27.4.2",
     "jest-watch-typeahead": "^1.0.0",
     "mini-css-extract-plugin": "^2.4.5",
+    "nodemon": "^2.0.15",
     "postcss": "^8.4.4",
     "postcss-flexbugs-fixes": "^5.0.2",
     "postcss-loader": "^6.2.1",
@@ -161,5 +171,6 @@
     "webpack-dev-server": "^4.6.0",
     "webpack-manifest-plugin": "^4.0.2",
     "workbox-webpack-plugin": "^6.4.1"
-  }
+  },
+  "proxy": "http://localhost:8000"
 }
