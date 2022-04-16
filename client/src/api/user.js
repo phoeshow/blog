@@ -1,4 +1,3 @@
-import { toaster } from 'evergreen-ui';
 import { useEffect, useState } from 'react';
 import { fetcher, poster } from '../utils';
 import { useNavigate, useLocation } from 'react-router-dom';
@@ -8,7 +7,7 @@ const useUser = (shouldCheckAdminExist = false) => {
 
   const navigate = useNavigate();
   const location = useLocation();
-  const from = location.state?.from?.pathname || '/admin';
+  const from = location.state?.from?.pathname || '/admin/edit';
 
   useEffect(() => {
     const checkAdminExist = async () => {
@@ -20,8 +19,6 @@ const useUser = (shouldCheckAdminExist = false) => {
       }
     };
     const checkAllowAdminPage = async () => {
-      // 如果当前正处于登录页就不检测了
-      if (location.pathname === '/login') return;
       const token = localStorage.getItem('_token');
       if (!token) {
         setAllowAdminPage(false);

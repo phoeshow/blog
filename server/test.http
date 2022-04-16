@@ -28,8 +28,8 @@ post {{url}}{{auth_api}}/login
 }
 
 ### 测试api
-POST {{url}}{{auth_api}}/test
+GET {{url}}{{auth_api}}/isLogin
 {{jsonContent}}
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InVzZXIxIiwiYXV0aG9yaXR5VHlwZSI6MTAwLCJpZCI6IjYyNGM0Nzk5MzJjZTViZTdhNWQ4YzA1MyIsImlhdCI6MTY0OTE4MjM1OX0.9118dCHfNag_krh3JmObJesmSC1jx0fLHdAp8pmHLMY
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InVzZXIxIiwiYXV0aG9yaXR5VHlwZSI6MTAwLCJpZCI6IjYyNGNhOTdjMTZiZjdlMWY1MDdmYmQxOSIsImlhdCI6MTY0OTk5MjM1Mn0.irMKb7O0R4TAlPiszUTMKVZcvJhXSoQq8wKO7HE5d9o
 
 {}

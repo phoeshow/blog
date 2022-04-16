@@ -2,7 +2,7 @@ const Router = require('@koa/router');
 const router = new Router();
 const jwt = require('jsonwebtoken');
 
-const { jwtSecretKey } = require('../serverConfig');
+const { jwtSecretKey } = require('../../config/server.config');
 const {
   createAdmin,
   checkAdminExist,

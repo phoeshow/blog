@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const { jwtSecretKey } = require('../serverConfig');
+const { jwtSecretKey } = require('../../config/server.config');
 const UserModel = require('../models/user');
 const httpStatus = require('http-status');
 

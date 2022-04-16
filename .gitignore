@@ -139,6 +139,7 @@ dist
 
 # production
 /build
+/client/build
 
 # misc
 .DS_Store
@@ -153,4 +154,4 @@ yarn-error.log*
 
 
 # server config
-server/serverConfig.js
+config/server.config.js

@@ -1,5 +1,9 @@
 const mongoose = require('mongoose');
-const { dbName, dbUserName, dbUserPassword } = require('./serverConfig');
+const {
+  dbName,
+  dbUserName,
+  dbUserPassword,
+} = require('../config/server.config');
 
 const connectDB = async () => {
   await mongoose.connect(`mongodb://localhost:27017`, {

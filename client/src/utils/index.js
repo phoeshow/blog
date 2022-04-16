@@ -1,5 +1,3 @@
-import { toaster } from 'evergreen-ui';
-
 // post方法
 export const poster = (url, requestData, auth = false) => {
   return commonFetcher('post', url, requestData, auth);
@@ -68,7 +66,7 @@ function commonFetcher(method, url, requestData, auth) {
       })
       .catch((error) => {
         console.error('[fetcher err]', error);
-        toaster.danger(error.message || error);
+        // toaster.danger(error.message || error);
         clearTimeout(abortId);
         reject(error);
       });

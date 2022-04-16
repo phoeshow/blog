@@ -70,6 +70,7 @@ async function startServer() {
       .on('error', onError);
   } catch (error) {
     console.log('server start error');
+    // 我应该做个功能  将启动出错捕获到输出出来
     process.exit();
   }
 }

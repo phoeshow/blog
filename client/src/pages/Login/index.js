@@ -1,20 +1,17 @@
-import React, { useState } from 'react';
-import {
-  Pane,
-  Button,
-  TextInputField,
-  Heading,
-  majorScale,
-  toaster,
-} from 'evergreen-ui';
-
+import './index.css';
+import React, { useEffect } from 'react';
+import { Button, InputWrapper, Input, Container } from '@mantine/core';
+import { useInputState } from '@mantine/hooks';
+import { useNavigate } from 'react-router-dom';
 import useUser from '../../api/user';
 
 const LoginPage = () => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [username, setUsername] = useInputState('');
+  const [password, setPassword] = useInputState('');
 
-  const { adminExist, login, register } = useUser(true);
+  const { adminExist, login, register, allowAdminPage } = useUser(true);
+
+  const navigate = useNavigate();
 
   const handleBtnClick = async (e) => {
     try {
@@ -22,45 +19,43 @@ const LoginPage = () => {
         await register(username, password);
         setUsername('');
         setPassword('');
-        toaster.success('注册成功');
       }
       if (adminExist === true) {
         await login(username, password);
-        toaster.success('登录成功');
       }
     } catch (error) {
       console.error(error);
     }
   };
 
+  useEffect(() => {
+    if (allowAdminPage === true) {
+      navigate('/admin', { replace: true });
+    }
+  }, [allowAdminPage]);
+
   return (
-    <div className="login-page-view">
-      <Pane width={400} margin="auto" paddingTop={majorScale(4)}>
-        <Heading size={700} marginBottom={majorScale(4)}>
-          Login
-        </Heading>
-        <TextInputField
-          label="Username"
-          placeholder="Username"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-        />
-        <TextInputField
-          label="Password"
+    <Container size={400}>
+      <h1>Login</h1>
+      <InputWrapper label="Username">
+        <Input placeholder="Username" value={username} onChange={setUsername} />
+      </InputWrapper>
+      <InputWrapper label="Password">
+        <Input
           placeholder="Password"
           value={password}
           type="password"
-          onChange={(e) => setPassword(e.target.value)}
+          onChange={setPassword}
         />
+      </InputWrapper>
+      <div className="login-btn_wrap">
         {adminExist !== 'pending' ? (
-          <Pane marginTop={majorScale(2)}>
-            <Button onClick={handleBtnClick} appearance="primary">
-              {adminExist === false ? '注册' : '登录'}
-            </Button>
-          </Pane>
+          <Button onClick={handleBtnClick}>
+            {adminExist === false ? '注册' : '登录'}
+          </Button>
         ) : null}
-      </Pane>
-    </div>
+      </div>
+    </Container>
   );
 };
 
