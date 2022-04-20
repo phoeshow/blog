@@ -1,6 +1,8 @@
 @url=http://localhost:8000
 @auth_api=/api/auth
+@articals_api=/api/articals
 @jsonContent = Content-Type: application/json
+@jwtToken = Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InVzZXIxIiwiYXV0aG9yaXR5VHlwZSI6MTAwLCJpZCI6IjYyNGNhOTdjMTZiZjdlMWY1MDdmYmQxOSIsImlhdCI6MTY1MDQ4ODY3Mn0.lGEXQQcmmVsH5zulGuGBt06QatiYB5werAbnBdyr1yo
 
 ### 测试服务器是否连通
 get {{url}}
@@ -30,6 +32,16 @@ post {{url}}{{auth_api}}/login
 ### 测试api
 GET {{url}}{{auth_api}}/isLogin
 {{jsonContent}}
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InVzZXIxIiwiYXV0aG9yaXR5VHlwZSI6MTAwLCJpZCI6IjYyNGNhOTdjMTZiZjdlMWY1MDdmYmQxOSIsImlhdCI6MTY0OTk5MjM1Mn0.irMKb7O0R4TAlPiszUTMKVZcvJhXSoQq8wKO7HE5d9o
+{{jwtToken}}
 
 {}
+
+### 新增文章
+POST {{url}}{{articals_api}}/add
+{{jsonContent}}
+{{jwtToken}}
+
+{
+  "title": "test",
+  "author": "user1"
+}

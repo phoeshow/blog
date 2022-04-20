@@ -9,8 +9,9 @@ const ArticalModel = mongoose.model(
     title: { type: String },
     author: String,
     // 标签
-    catigories: {
+    categories: {
       type: [String],
+      default: [],
     },
     // 创建日期
     date: {
@@ -20,6 +21,7 @@ const ArticalModel = mongoose.model(
     // 更新日期
     updated: {
       type: Date,
+      default: Date.now,
     },
     // 描述，会在首页显示
     description: {
@@ -31,16 +33,14 @@ const ArticalModel = mongoose.model(
       type: String,
       default: '',
     },
-    // 评论系统我还没有想好等等再说
-    // allowComment: {
-    //   type: Boolean,
-    //   default: false,
-    // },
-    // comments: [
-    //   {
-    //     author: String,
-    //   },
-    // ],
+    published: {
+      type: Boolean,
+      default: false,
+    },
+    draft: {
+      type: String,
+      default: '',
+    },
   })
 );
 
