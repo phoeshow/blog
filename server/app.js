@@ -1,76 +1,43 @@
-const Koa = require('koa');
-const koaBody = require('koa-body');
-const routes = require('./routes');
 const connectDB = require('./db');
 const http = require('http');
 const https = require('https');
+
+const express = require('express');
+const createError = require('http-errors');
+const logger = require('morgan');
+const paths = require('../config/paths');
+const routes = require('./routes');
 
 const port = process.env.PORT || 8000;
 
 async function startServer() {
   try {
-    const app = new Koa();
+    const app = express();
     await connectDB();
 
-    if (process.env.NODE_ENV === 'development') {
-      // logger
-      app.use(async (ctx, next) => {
-        await next();
-        const rt = ctx.response.get('X-Response-Time');
-        console.log(`${ctx.method} ${ctx.url} - ${rt}`);
-      });
-      // x-response-time
-      app.use(async (ctx, next) => {
-        const start = Date.now();
-        await next();
-        const ms = Date.now() - start;
-        ctx.set('X-Response-Time', `${ms}ms`);
-      });
-    }
+    app.use(logger('dev'));
+    app.use(express.json());
+    app.use(express.urlencoded({ extended: false }));
+    app.use(express.static(paths.appBuild));
 
-    app.use(koaBody());
+    app.use(routes);
 
-    // error handler
-    app.use(async (ctx, next) => {
-      try {
-        await next();
-        const status = ctx.status || 404;
-        if (status === 404) {
-          ctx.throw(404);
-        }
-      } catch (err) {
-        console.log(err);
-        ctx.status = err.status || 500;
-        if (ctx.status === 404) {
-          ctx.body = {
-            status: 404,
-          };
-        } else {
-          ctx.body = {
-            status: ctx.status,
-            error: err,
-          };
-        }
-      }
+    app.use(function (req, res, next) {
+      next(createError(404));
     });
-
-    // 还没决定是否用view engine 和 static 服务
-    // app.use(views(`${__dirname}/views`, { extension: 'jade' }));
-    // app.use(static(`${__dirname}/public`));
-
-    // 遍历所有的route
-    routes.forEach((route) => {
-      app.use(route.routes()).use(route.allowedMethods());
+    // error handler
+    app.use(function (err, req, res, next) {
+      res.status(err.status || 500);
+      res.send(err);
     });
 
     http
-      .createServer(app.callback())
+      .createServer(app)
       .listen(port)
       .on('listening', onListening)
       .on('error', onError);
   } catch (error) {
     console.log('server start error');
-    // 我应该做个功能  将启动出错捕获到输出出来
     process.exit();
   }
 }

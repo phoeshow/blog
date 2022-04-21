@@ -4,8 +4,6 @@
 @jsonContent = Content-Type: application/json
 @jwtToken = Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InVzZXIxIiwiYXV0aG9yaXR5VHlwZSI6MTAwLCJpZCI6IjYyNGNhOTdjMTZiZjdlMWY1MDdmYmQxOSIsImlhdCI6MTY1MDQ4ODY3Mn0.lGEXQQcmmVsH5zulGuGBt06QatiYB5werAbnBdyr1yo
 
-### 测试服务器是否连通
-get {{url}}
 
 ### 检查admin用户是否存在
 get {{url}}{{auth_api}}/adminexist
@@ -29,7 +27,7 @@ post {{url}}{{auth_api}}/login
   "password":"123456"
 }
 
-### 测试api
+### 检查是否登录
 GET {{url}}{{auth_api}}/isLogin
 {{jsonContent}}
 {{jwtToken}}
@@ -42,6 +40,27 @@ POST {{url}}{{articals_api}}/add
 {{jwtToken}}
 
 {
-  "title": "test",
-  "author": "user1"
+  "title": "test2",
+  "author": "user1",
+  "categories": ["hello", "world"],
+  "description": "这是一段描述",
+  "draft": "<h2>试试效果</h2>"
+}
+
+### 发布文章
+POST {{url}}{{articals_api}}/publish
+{{jsonContent}}
+{{jwtToken}}
+
+{
+  "id": "6260f2d53359c7eb9ae4e311"
+}
+
+### 删除文章
+POST {{url}}{{articals_api}}/remove
+{{jsonContent}}
+{{jwtToken}}
+
+{
+  "id": "6260f5e9606cc652f4979dea"
 }

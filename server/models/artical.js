@@ -6,7 +6,7 @@ const ArticalModel = mongoose.model(
   'Artical',
   new mongoose.Schema({
     // 标题
-    title: { type: String },
+    title: { type: String, default: '', required: true },
     author: String,
     // 标签
     categories: {
@@ -33,13 +33,13 @@ const ArticalModel = mongoose.model(
       type: String,
       default: '',
     },
-    published: {
-      type: Boolean,
-      default: false,
-    },
     draft: {
       type: String,
       default: '',
+    },
+    published: {
+      type: Boolean,
+      default: false,
     },
   })
 );
